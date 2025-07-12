@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thank You – Skelly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&family=Rubik+Glitch&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Unbounded', sans-serif;
+      background: #fff;
+      color: #000;
+      overflow-x: hidden;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .glitch-font {
+      font-family: 'Rubik Glitch', cursive;
+      letter-spacing: 2px;
+      font-size: 2rem;
+    }
+
+    .skeleton-graphic {
+      position: relative;
+      padding: 2rem 0;
+      background: #fff;
+    }
+
+    .skeleton-hands {
+      position: relative;
+      height: 100px;
+      margin-bottom: 2rem;
+    }
+
+    .hand {
+      position: absolute;
+      top: 0;
+      width: 90px;
+    }
+
+    .left-hand { left: 0; }
+    .right-hand { right: 0; }
+    .logo-center {
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .thank-message {
+      margin-top: 3rem;
+    }
+
+    .thank-message h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .thank-message p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background: black;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #5227FF;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 4rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo + Hands -->
+  <section class="skeleton-graphic">
+    <div class="skeleton-hands">
+      <img src="left-hand.png" class="hand left-hand" alt="Left Hand">
+      <img src="logo.png" class="logo-center" alt="Skelly Logo" id="logoImg">
+      <img src="right-hand.jpeg" class="hand right-hand" alt="Right Hand">
+    </div>
+  </section>
+
+  <!-- Thank You Message -->
+  <div class="thank-message">
+    <h1 class="glitch-font" id="thankText">THANK YOU!</h1>
+    <p id="subText">Your order has been received.<br>We'll get back to you shortly.</p>
+    <a href="index.html" class="back-btn" id="backBtn">← Back to Home</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Skelly. All Rights Reserved.
+  </footer>
+
+  <!-- GSAP Animation -->
+  <script>
+    gsap.from("#logoImg", { opacity: 0, y: -100, duration: 1 });
+    gsap.from("#thankText", { opacity: 0, scale: 0.3, duration: 1.2, delay: 0.5, ease: "bounce" });
+    gsap.from("#subText", { opacity: 0, y: 30, duration: 1, delay: 1 });
+    gsap.from("#backBtn", { opacity: 0, y: 50, duration: 1, delay: 1.5 });
+  </script>
+</body>
+</html>

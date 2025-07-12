@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Skelly – Privacy Policy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&family=Rubik+Glitch&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Unbounded', sans-serif;
+      background: #fff;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    .glitch-font {
+      font-family: 'Rubik Glitch', sans-serif;
+      text-transform: uppercase;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: white;
+      color: black;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      height: 70px;
+    }
+
+    .logo img {
+      height: 70px;
+      transform: scale(1.3);
+      transform-origin: left center;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .cart {
+      position: relative;
+    }
+
+    .cart img {
+      width: 28px;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: #fff;
+      font-size: 12px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-toggle {
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .bar {
+      height: 4px;
+      width: 100%;
+      background: black;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    .menu-toggle.active .bar:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .menu {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background: #111;
+      padding: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      z-index: 2000;
+    }
+
+    .menu.active {
+      transform: translateX(0);
+    }
+
+    .menu .close-btn {
+      align-self: flex-end;
+      font-size: 1.5rem;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 2rem;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .skeleton-graphic {
+      text-align: center;
+      padding: 3rem 2rem 0 2rem;
+      position: relative;
+      background: white;
+    }
+
+    .skeleton-hands {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      margin-bottom: 2rem;
+    }
+
+    .hand {
+      position: absolute;
+      top: 0;
+      width: 90px;
+    }
+
+    .left-hand {
+      left: 0;
+    }
+
+    .right-hand {
+      right: 0;
+    }
+
+    .logo-center {
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .privacy-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      line-height: 1.8;
+    }
+
+    footer {
+      background: #000;
+      color: #ccc;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-logo img {
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col {
+      margin-top: 1rem;
+      margin-left: 0.5rem;
+      line-height: 1.8;
+    }
+
+    .footer-col a {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .social-icons img {
+      width: 24px;
+    }
+
+    .footer-col hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 2rem 0 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .menu {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header data-aos="fade-down">
+  <div class="logo"><a href="index.html"><img src="logo.png" alt="Skelly Logo"></a></div>
+  <div class="header-right">
+    <a href="cart.html" class="cart">
+      <img src="cart-icon.png" alt="Cart">
+      <div class="cart-count" id="cartCount">0</div>
+    </a>
+    <div class="menu-toggle" id="menuToggle">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Slide Menu -->
+<div class="menu" id="mobileMenu">
+  <button class="close-btn" id="closeMenu">✕</button>
+ <a href="index.html">Home</a>
+  <a href="store.html">Store</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms & Conditions</a>
+  <p style="margin-top: auto;">© Skelly 2025</p>
+</div>
+
+<!-- Skeleton Graphic -->
+<section class="skeleton-graphic">
+  <div class="skeleton-hands">
+    <img src="left-hand.png" class="hand left-hand" data-aos="fade-right" data-aos-delay="100" alt="Left Hand">
+    <img src="logo.png" class="logo-center" data-aos="fade-down" data-aos-delay="200" alt="Center Logo">
+    <img src="right-hand.jpeg" class="hand right-hand" data-aos="fade-left" data-aos-delay="100" alt="Right Hand">
+  </div>
+</section>
+
+<!-- Privacy Content -->
+<div class="privacy-container" data-aos="fade-up">
+  <h1 class="glitch-font">Privacy Policy</h1>
+  <p>
+    At Skelly, your privacy is a top priority. This Privacy Policy outlines how we collect, use, and protect the information you provide when you visit our website or make a purchase. By using our site, you consent to the practices described below.
+  </p>
+  <p>
+    We may collect personal information such as your name, email address, shipping address, phone number, and payment details when you place an order. This information is used solely to process your transaction, provide updates, and improve our services. We do not share or sell your personal data to third parties.
+  </p>
+  <p>
+    Our website may use cookies and tracking tools to enhance your browsing experience and analyze traffic. These cookies do not collect personal information and are used to understand user preferences and deliver better content.
+  </p>
+  <p>
+    Skelly uses secure third-party payment processors to handle transactions. Your payment data is encrypted and never stored on our servers. We are committed to maintaining a secure environment and utilize industry-standard safeguards to protect your data.
+  </p>
+  <p>
+    You have the right to review, update, or delete your personal information at any time. To request this, please contact us at info@skelly.com. We will respond to your request within a reasonable timeframe.
+  </p>
+  <p>
+    This Privacy Policy may be updated periodically. We encourage you to review this page from time to time. Continued use of our website constitutes your acceptance of any updates.
+  </p>
+  <p>
+    If you have any questions about our privacy practices, please reach out to us. Thank you for trusting Skelly with your personal information.
+  </p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo"><img src="full-skeleton.png" alt="Skelly Logo"></div>
+  <div class="footer-col">
+    <p>Phone: +1 (646) 492-2316</p>
+    <p>Email: ShopSkellyCo@gmail.com</p>
+    <div class="social-icons">
+      <a href="https://instagram.com/skelly" target="_blank">
+        <img src="instagram-icon.jpeg" alt="Instagram Icon" />
+      </a>
+    </div>
+    <p>188 macdougal st</p>
+    <p>brooklyn NY 11233</p>
+    <p>Mon–Sun: 9am–7pm</p>
+    <hr />
+    <p>© 2025 Skelly. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- AOS + JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+
+  const toggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('closeMenu');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    menu.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    toggle.classList.remove('active');
+    menu.classList.remove('active');
+  });
+
+   // === Cart Functions ===
+
+  function getCart() {
+    const cart = localStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function updateCartCount() {
+    const cart = getCart();
+    let totalItems = 0;
+    cart.forEach(item => {
+      totalItems += parseInt(item.quantity) || 0;
+    });
+    document.getElementById('cartCount').innerText = totalItems || 0;
+  }
+updateCartCount();
+
+
+</script>
+
+</body>
+</html>

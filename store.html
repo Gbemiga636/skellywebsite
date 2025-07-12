@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Skelly Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&family=Rubik+Glitch&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Unbounded', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.glitch-font {
+  font-family: 'Rubik Glitch', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: white;
+  color: black;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  height: 70px;
+}
+
+.logo img {
+  height: 70px;
+  transform: scale(1.3);
+  transform-origin: left center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart img {
+  width: 28px;
+  cursor: pointer;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle {
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  position: relative;
+}
+
+.bar {
+  height: 4px;
+  width: 100%;
+  background: black;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 250px;
+  background: #111;
+  padding: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
+}
+
+.menu.active {
+  transform: translateX(0);
+}
+
+.menu .close-btn {
+  align-self: flex-end;
+  font-size: 1.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.subscribe {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #111;
+}
+
+.subscribe input {
+  padding: 0.75rem;
+  width: 250px;
+  max-width: 80%;
+  border-radius: 5px;
+  border: none;
+  margin-right: 0.5rem;
+}
+
+.subscribe button {
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+footer {
+  background: #000;
+  color: #ccc;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-logo img {
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.footer-col {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  line-height: 1.8;
+}
+
+.footer-col hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 2rem 0 1rem;
+}
+
+.social-icons img {
+  width: 24px;
+}
+
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.whatsapp img {
+  width: 50px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu {
+    width: 100%;
+  }
+}
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .skeleton-graphic {
+      text-align: center;
+      padding: 4rem 2rem 1rem;
+      position: relative;
+      background: black;
+      color: white;
+    }
+.skeleton-graphic {
+  background: #fff;
+  color: #000;
+}
+
+.skeleton-hands .hand,
+.skeleton-hands .logo-center {
+  filter: grayscale(0%);
+}
+.scroll-velocity {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+.scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 2rem;
+  color: white;
+  animation: scrollLoop 12s linear infinite;
+}
+
+@keyframes scrollLoop {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.product-card:nth-child(even) {
+  background: #fff;
+  color: #000;
+}
+
+.product-card:nth-child(even) .cart-btn,
+.product-card:nth-child(even) .slider-buttons button {
+  background: black;
+  color: white;
+}
+
+.product-card:nth-child(even) .slider-buttons button:hover {
+  background: #333;
+}
+
+    .skeleton-hands {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      margin-bottom: 2rem;
+    }
+
+    .hand { position: absolute; top: 0; width: 90px; }
+    .left-hand { left: 0; }
+    .right-hand { right: 0; }
+    .logo-center {
+      width: 150px;
+      margin: 0 auto 1rem auto;
+      display: block;
+    }
+
+    .products {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff 0%, #fff 30%, #000 100%);
+}
+
+    .product-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 250px;
+      color: white;
+      position: relative;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 250px;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .slider-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .slider-buttons button {
+      background: white;
+      color: black;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .slider-buttons button:hover {
+      background: #ff0;
+    }
+.scroll-velocity {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 1rem 0;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  background: #000;
+}
+
+.scroll-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  white-space: nowrap;
+  animation: scrollAnim linear infinite;
+  animation-duration: 60s;
+}
+.rotating-text-section {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  font-size: 2.5rem;
+  padding: 2rem 1rem;
+  background: #000;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+}
+
+.rotating-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: rotateIn 0.6s forwards;
+}
+
+@keyframes rotateIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-text {
+  font-size: 2rem;
+  padding-right: 4rem;
+  display: inline-block;
+  color: white;
+}
+
+@keyframes scrollAnim {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (min-width: 768px) {
+  .scroll-text {
+    font-size: 4rem;
+  }
+}
+
+    .product-card button.cart-btn {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.7rem;
+      background: white;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Subscribe and footer styles can be reused from homepage */
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .product-list { flex-direction: column; }
+    }
+  </style>
+<style>
+/* --- Skelly Cube Animation Styles --- */
+.cube-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 5rem auto;
+  perspective: 1000px;
+  text-align: center;
+}
+
+.cube-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(2, 100px);
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cube {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 6s infinite linear;
+}
+
+.cube-face {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: #1a1a2e;
+  border: 2px dashed #5227FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rubik Glitch', sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  backface-visibility: hidden;
+}
+
+.cube-face.front  { transform: rotateY(0deg) translateZ(50px); }
+.cube-face.back   { transform: rotateY(180deg) translateZ(50px); }
+.cube-face.right  { transform: rotateY(90deg) translateZ(50px); }
+.cube-face.left   { transform: rotateY(-90deg) translateZ(50px); }
+.cube-face.top    { transform: rotateX(90deg) translateZ(50px); }
+.cube-face.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+@keyframes rotateCube {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header data-aos="fade-down">
+  <div class="logo"><img src="logo.png" alt="Skelly Logo"></div>
+  <div class="header-right">
+    <a href="cart.html" class="cart">
+      <img src="cart-icon.png" alt="Cart" style="width: 28px;">
+      <div class="cart-count" id="cartCount">0</div>
+    </a>
+    <div class="menu-toggle" id="menuToggle">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="menu" id="mobileMenu">
+  <button class="close-btn" id="closeMenu">✕</button>
+  <a href="index.html">Home</a>
+  <a href="store.html">Store</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms & Conditions</a>
+  <p style="margin-top: auto;">© Skelly 2025</p>
+</div>
+
+<!-- Logo + Hands -->
+<section class="skeleton-graphic">
+  <div class="skeleton-hands">
+    <img src="left-hand.png" class="hand left-hand" data-aos="fade-right" alt="Left Hand">
+    <img src="logo.png" class="logo-center" data-aos="fade-down" alt="Skelly Logo">
+    <img src="right-hand.jpeg" class="hand right-hand" data-aos="fade-left" alt="Right Hand">
+  </div>
+</section>
+<!-- Rotating Glitch Text -->
+<section class="rotating-text-section glitch-font">
+  <span id="rotatingTextWrapper">
+    <span class="rotating-word">S</span>
+    <span class="rotating-word">K</span>
+    <span class="rotating-word">E</span>
+    <span class="rotating-word">L</span>
+    <span class="rotating-word">L</span>
+    <span class="rotating-word">Y</span>
+    <span class="rotating-word">&nbsp;</span>
+    <span class="rotating-word">H</span>
+    <span class="rotating-word">A</span>
+    <span class="rotating-word">T</span>
+    <span class="rotating-word">S</span>
+  </span>
+</section>
+<!-- Store Products -->
+<section class="products" id="store">
+  <h2 data-aos="fade-up">Skelly Hat Collection</h2>
+  <div class="product-list">
+
+    <!-- Grey Hat -->
+    <div class="product-card" data-aos="zoom-in">
+      <img src="grey-hat-1.jpeg" id="greyImg" alt="Grey Hat">
+      <p><strong>Grey Hat</strong></p>
+      <p>$25.00</p>
+      <div class="slider-buttons">
+        <button onclick="changeImage('greyImg', greyImages, -1)">⟵</button>
+        <button onclick="changeImage('greyImg', greyImages, 1)">⟶</button>
+      </div>
+      <button class="cart-btn" onclick="addToCart('Grey Hat', 25, 'grey-hat-1.jpeg')">Add to Cart</button>
+    </div>
+
+    <!-- Pink Trees -->
+    <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
+      <img src="pink-trees-1.jpeg" id="pinkImg" alt="Pink Trees Hat">
+      <p><strong>Pink Trees</strong></p>
+      <p>$30.00</p>
+      <div class="slider-buttons">
+        <button onclick="changeImage('pinkImg', pinkImages, -1)">⟵</button>
+        <button onclick="changeImage('pinkImg', pinkImages, 1)">⟶</button>
+      </div>
+      <button class="cart-btn" onclick="addToCart('Pink Trees', 30, 'pink-trees-1.jpeg')">Add to Cart</button>
+    </div>
+
+    <!-- Black Hat -->
+    <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
+      <img src="black-hat-1.jpeg" id="blackImg" alt="Black Hat">
+      <p><strong>Black Hat</strong></p>
+      <p>$25.00</p>
+      <div class="slider-buttons">
+        <button onclick="changeImage('blackImg', blackImages, -1)">⟵</button>
+        <button onclick="changeImage('blackImg', blackImages, 1)">⟶</button>
+      </div>
+      <button class="cart-btn" onclick="addToCart('Black Hat', 25, 'black-hat-1.jpeg')">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+<section class="cube-container" data-aos="zoom-in">
+  <h2 class="glitch-font" style="color:white;margin-bottom:2rem;">S K E L L Y</h2>
+  <div class="cube-grid">
+    <div class="cube">
+      <div class="cube-face front">S</div>
+      <div class="cube-face back">S</div>
+      <div class="cube-face right">S</div>
+      <div class="cube-face left">S</div>
+      <div class="cube-face top">S</div>
+      <div class="cube-face bottom">S</div>
+    </div>
+    <div class="cube">
+      <div class="cube-face front">K</div>
+      <div class="cube-face back">K</div>
+      <div class="cube-face right">K</div>
+      <div class="cube-face left">K</div>
+      <div class="cube-face top">K</div>
+      <div class="cube-face bottom">K</div>
+    </div>
+    <div class="cube">
+      <div class="cube-face front">E</div>
+      <div class="cube-face back">E</div>
+      <div class="cube-face right">E</div>
+      <div class="cube-face left">E</div>
+      <div class="cube-face top">E</div>
+      <div class="cube-face bottom">E</div>
+    </div>
+    <div class="cube">
+      <div class="cube-face front">L</div>
+      <div class="cube-face back">L</div>
+      <div class="cube-face right">L</div>
+      <div class="cube-face left">L</div>
+      <div class="cube-face top">L</div>
+      <div class="cube-face bottom">L</div>
+    </div>
+    <div class="cube">
+      <div class="cube-face front">L</div>
+      <div class="cube-face back">L</div>
+      <div class="cube-face right">L</div>
+      <div class="cube-face left">L</div>
+      <div class="cube-face top">L</div>
+      <div class="cube-face bottom">L</div>
+    </div>
+    <div class="cube">
+      <div class="cube-face front">Y</div>
+      <div class="cube-face back">Y</div>
+      <div class="cube-face right">Y</div>
+      <div class="cube-face left">Y</div>
+      <div class="cube-face top">Y</div>
+      <div class="cube-face bottom">Y</div>
+    </div>
+  </div>
+</section>
+
+<!-- Subscribe -->
+<section class="subscribe" data-aos="zoom-in">
+  <h2>Never Miss Out</h2>
+  <p>Get updates on new arrivals and limited drops</p><br>
+  <form id="subscribeForm">
+    <input type="email" name="email" placeholder="Enter your email" required />
+    <button type="submit">Subscribe Now</button>
+  </form>
+  <p id="subscribeSuccess" style="margin-top: 1rem; color: lightgreen; display: none;">
+    ✅ Thanks for subscribing!
+  </p>
+</section>
+
+<!-- Footer -->
+<footer data-aos="fade-up">
+  <div class="footer-logo"><img src="full-skeleton.png" alt="Skelly Logo"></div>
+  <div class="footer-col">
+    <p>Phone: +1 (646) 492-2316</p>
+    <p>Email: ShopSkellyCo@gmail.com</p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/skellyskellyco" target="_blank">
+        <img src="instagram-icon.jpeg" alt="Instagram Icon" />
+      </a>
+    </div>
+    <p>188 Macdougal St, Brooklyn NY</p>
+    <p>Mon–Sun: 9am–7pm</p>
+    <hr />
+    <p>© 2025 Skelly. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- WhatsApp -->
+<div class="whatsapp">
+  <a href="https://wa.me/16464922316" target="_blank">
+    <img src="whatsapp-icon.png" alt="WhatsApp">
+  </a>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+
+  const greyImages = ["grey-hat-1.jpeg", "grey-hat-2.jpeg"];
+   const pinkImages = ["pink-trees-1.jpeg", "pink-trees-2.jpeg"];
+  const blackImages = ["black-hat-1.jpeg", "black-hat-2.jpeg"];
+  let currentIndexes = { greyImg: 0, pinkImg: 0, blackImg: 0 };
+
+  function changeImage(imgId, images, direction) {
+    currentIndexes[imgId] = (currentIndexes[imgId] + direction + images.length) % images.length;
+    document.getElementById(imgId).src = images[currentIndexes[imgId]];
+  }
+
+  // Cart Functions
+  function getCart() {
+    const cart = localStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function updateCartCount() {
+    const cart = getCart();
+    let totalItems = 0;
+    cart.forEach(item => {
+      totalItems += item.quantity;
+    });
+    document.getElementById('cartCount').innerText = totalItems || 0;
+  }
+
+  function addToCart(name, price, image) {
+    let cart = getCart();
+    let item = cart.find(i => i.name === name);
+    if (item) item.quantity++;
+    else cart.push({ name, price, image, quantity: 1 });
+    saveCart(cart);
+    updateCartCount();
+  }
+
+  document.addEventListener("DOMContentLoaded", updateCartCount);
+
+  // Menu toggle
+  const toggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('closeMenu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    menu.classList.add('active');
+  });
+  closeBtn.addEventListener('click', () => {
+    toggle.classList.remove('active');
+    menu.classList.remove('active');
+  });
+
+  // Subscribe
+  document.getElementById("subscribeForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const res = await fetch("https://getform.io/f/bvryneob", {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" }
+    });
+    if (res.ok) {
+      form.reset();
+      document.getElementById("subscribeSuccess").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("subscribeSuccess").style.display = "none";
+      }, 3000);
+    } else {
+      alert("Error! Try again.");
+    }
+  });
+</script>
+<script>
+  const scrollTrack = document.getElementById('scrollTrack');
+  let baseSpeed = 60; // slower default
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const newY = window.scrollY;
+        const delta = Math.abs(newY - lastScrollY);
+        lastScrollY = newY;
+
+        // Scroll speed influence (but keep it slower)
+        const newSpeed = Math.max(20, baseSpeed - delta * 0.8); // clamps to minimum 20s
+        scrollTrack.style.animationDuration = `${newSpeed}s`;
+
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+</script>
+<script>
+  const rotatingTexts = ["SKELLY HATS", "COLLECTIONS"];
+  let textIndex = 0;
+  const wrapper = document.getElementById("rotatingTextWrapper");
+
+  function updateRotatingText() {
+    const nextText = rotatingTexts[textIndex];
+    wrapper.innerHTML = "";
+
+    [...nextText].forEach((char, i) => {
+      const span = document.createElement("span");
+      span.className = "rotating-word";
+      span.textContent = char;
+      span.style.animationDelay = `${i * 0.05}s`;
+      wrapper.appendChild(span);
+    });
+
+    textIndex = (textIndex + 1) % rotatingTexts.length;
+  }
+
+  // Initial render
+  updateRotatingText();
+  // Loop every 3 seconds
+  setInterval(updateRotatingText, 3000);
+</script>
+</body>
+</html>

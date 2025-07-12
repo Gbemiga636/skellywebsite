@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Skelly – Bone-Chilling Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&family=Rubik+Glitch&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Unbounded', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .glitch-font {
+      font-family: 'Rubik Glitch', sans-serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    #loader {
+      position: fixed;
+      background: #000;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 0.5s ease;
+    }
+
+    #loader img {
+      width: 200px;
+      animation: spin 3s linear infinite;
+    }
+
+    #loader h1 {
+      margin-top: 20px;
+      font-size: 3rem;
+      color: white;
+    }
+
+    @keyframes spin {
+      0% { transform: rotateY(0); }
+      100% { transform: rotateY(360deg); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: white;
+      color: black;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      height: 70px;
+    }
+
+    .logo img {
+      height: 70px;
+      transform: scale(1.3);
+      transform-origin: left center;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .cart {
+      position: relative;
+    }
+
+    .cart img { width: 28px; cursor: pointer; }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: #fff;
+      font-size: 12px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-toggle {
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .bar {
+      height: 4px;
+      width: 100%;
+      background: black;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    .menu-toggle.active .bar:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .menu {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 250px;
+      background: #111;
+      padding: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      z-index: 2000;
+    }
+
+    .menu.active { transform: translateX(0); }
+
+    .menu .close-btn {
+      align-self: flex-end;
+      font-size: 1.5rem;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 2rem;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('hero-image.png') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+
+    .hero a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .products {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: #fff;
+      color: #000;
+    }
+
+    .product-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: #eee;
+      padding: 1rem;
+      border-radius: 8px;
+      width: 220px;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .product-card button {
+      padding: 0.5rem 1rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    .view-more {
+      margin-top: 2rem;
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      background: black;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .skeleton-graphic {
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      background: white;
+      color: black;
+    }
+
+    .skeleton-hands {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      margin-bottom: 2rem;
+    }
+
+    .hand { position: absolute; top: 0; width: 90px; }
+    .left-hand { left: 0; }
+    .right-hand { right: 0; }
+    .logo-center {
+      width: 150px;
+      margin: 0 auto 1rem auto;
+      display: block;
+    }
+
+    .subscribe {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #111;
+    }
+
+    .subscribe input {
+      padding: 0.75rem;
+      width: 250px;
+      max-width: 80%;
+      border-radius: 5px;
+      border: none;
+      margin-right: 0.5rem;
+    }
+
+    .subscribe button {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #000;
+      color: #ccc;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-logo img { height: 80px; margin-bottom: 1rem; }
+
+    .footer-col {
+      margin-top: 1rem;
+      margin-left: 0.5rem;
+      line-height: 1.8;
+    }
+
+    .footer-col hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 2rem 0 1rem;
+    }
+
+    .social-icons img { width: 24px; }
+
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .whatsapp img { width: 50px; cursor: pointer; }
+
+    @media (max-width: 600px) {
+      .product-list { flex-direction: column; align-items: center; }
+      .menu { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <img src="skeleton-head.png" alt="Loading..." />
+  <h1 class="glitch-font">SKELLY</h1>
+</div>
+
+<!-- Header -->
+<header data-aos="fade-down">
+  <div class="logo"><img src="logo.png" alt="Skelly Logo"></div>
+  <div class="header-right">
+    <a href="cart.html" class="cart">
+      <img src="cart-icon.png" alt="Cart">
+      <div class="cart-count" id="cartCount">0</div>
+    </a>
+    <div class="menu-toggle" id="menuToggle">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Menu -->
+<div class="menu" id="mobileMenu">
+  <button class="close-btn" id="closeMenu">✕</button>
+ <a href="index.html">Home</a>
+  <a href="store.html">Store</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms & Conditions</a>
+  <p style="margin-top: auto;">© Skelly 2025</p>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div data-aos="fade-up">
+    <h1>COME TAP <br> IN</h1>
+    <a href="store.html">Explore Collection</a>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products" id="store">
+  <h2 data-aos="fade-up">Preview Our Skelly Hats</h2>
+  <div class="product-list">
+    <div class="product-card" data-aos="zoom-in">
+      <img src="grey-hat-1.jpeg" alt="Grey Hat">
+      <p><strong>Grey Hat</strong></p>
+      <p>$25.00</p>
+      <button onclick="addToCart('Grey Hat', 25, 'grey-hat-1.jpeg')">Add to Cart</button>
+    </div>
+    <div class="product-card" data-aos="zoom-in" data-aos-delay="150">
+      <img src="pink-trees-1.jpeg" alt="Pink Trees">
+      <p><strong>Pink Trees</strong></p>
+      <p>$30.00</p>
+      <button onclick="addToCart('Pink Trees', 30, 'pink-trees-1.jpeg')">Add to Cart</button>
+    </div>
+  </div>
+  <a href="store.html" class="view-more" data-aos="fade-up">View More</a>
+</section>
+
+<!-- Skeleton Graphic -->
+<section class="skeleton-graphic" data-aos="fade-up">
+  <div class="skeleton-hands">
+    <img src="left-hand.png" class="hand left-hand" data-aos="fade-right" data-aos-delay="100" alt="Left Hand">
+    <img src="logo.png" class="logo-center" data-aos="fade-down" data-aos-delay="200" alt="Center Logo">
+    <img src="right-hand.jpeg" class="hand right-hand" data-aos="fade-left" data-aos-delay="100" alt="Right Hand">
+  </div>
+</section>
+
+<!-- Subscribe -->
+<section class="subscribe" data-aos="zoom-in">
+  <h2>Never Miss Out</h2>
+  <p>Get updates on new arrivals and limited drops</p><br>
+  <form id="subscribeForm" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required />
+    <button type="submit">Subscribe Now</button>
+  </form>
+  <p id="subscribeSuccess" style="margin-top: 1rem; color: lightgreen; display: none;">
+    ✅ Thanks for subscribing!
+  </p>
+</section>
+
+<!-- Footer -->
+<footer data-aos="fade-up">
+  <div class="footer-logo"><img src="full-skeleton.png" alt="Skelly Logo"></div>
+  <div class="footer-col">
+    <p>Phone: +1 (646) 492-2316</p>
+    <p>Email: ShopSkellyCo@gmail.com</p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/skellyskellyco?igsh=MW1tZWRqanR0NDdjZw==" target="_blank">
+        <img src="instagram-icon.jpeg" alt="Instagram Icon" />
+      </a>
+    </div>
+    <p>188 Macdougal St</p>
+    <p>Brooklyn NY 11233</p>
+    <p>Mon–Sun: 9am–7pm</p>
+    <hr />
+    <p>© 2025 Skelly. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- WhatsApp -->
+<div class="whatsapp">
+  <a href="https://wa.me/16464922316" target="_blank">
+    <img src="whatsapp-icon.png" alt="WhatsApp">
+  </a>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+
+  // Loader
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+      }, 500);
+    }, 2500);
+  });
+
+  // Mobile Menu
+  const toggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('closeMenu');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    menu.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    toggle.classList.remove('active');
+    menu.classList.remove('active');
+  });
+
+  // === Cart Functions ===
+
+  function getCart() {
+    const cart = localStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  function updateCartCount() {
+    const cart = getCart();
+    let totalItems = 0;
+    cart.forEach(item => {
+      totalItems += parseInt(item.quantity) || 0;
+    });
+    document.getElementById('cartCount').innerText = totalItems || 0;
+  }
+
+  function addToCart(name, price, image) {
+    let cart = getCart();
+    let item = cart.find(i => i.name === name);
+    if (item) {
+      item.quantity += 1;
+    } else {
+      cart.push({ name, price, image, quantity: 1 });
+    }
+    saveCart(cart);
+    updateCartCount();
+  }
+
+  // On load, show correct cart count
+  document.addEventListener('DOMContentLoaded', updateCartCount);
+
+  // Newsletter form
+  document.getElementById("subscribeForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const successMsg = document.getElementById("subscribeSuccess");
+
+    const formData = new FormData(form);
+
+    const res = await fetch("https://getform.io/f/bvryneob", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" }
+    });
+
+    if (res.ok) {
+      form.reset();
+      successMsg.style.display = "block";
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 3000);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  });
+</script>
+</body>
+</html>

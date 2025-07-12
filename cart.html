@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Skelly – Your Cart</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Unbounded:400,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0;padding:0;box-sizing:border-box }
+    body { font-family:'Unbounded',sans-serif; background:#000; color:#fff; overflow-x:hidden; }
+
+    /* Header + Toggle */
+    header { position:sticky; top:0; background:#fff; color:#000; display:flex; justify-content:space-between; align-items:center;
+      padding:.5rem 2rem; z-index:1000; height:70px;
+    }
+    .logo img { height:70px; transform:scale(1.3); }
+    .menu-toggle { cursor:pointer; display:flex; flex-direction:column; gap:5px; z-index:1101; }
+    .bar { width:30px; height:4px; background:#000; transition:0.4s; }
+    .menu-toggle.open .bar:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .menu-toggle.open .bar:nth-child(2) { opacity:0; }
+    .menu-toggle.open .bar:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+    /* Full-screen slide menu */
+    .menu { position:fixed; top:0; left:0; width:100vw; height:100vh; background:#111; display:flex;
+      flex-direction:column; padding:3rem 2rem; transform:translateX(100%); transition:transform .3s ease-in-out;
+      overflow-y:auto; z-index:1100;
+    }
+    .menu.open { transform:translateX(0); }
+    .menu a { color:#fff; text-decoration:none; margin-bottom:2rem; font-weight:600; font-size:1.2em; }
+    .menu .close-btn { align-self:flex-end; background:none; border:none; color:#fff; font-size:1.5em;
+      cursor:pointer; margin-bottom:2rem;
+    }
+
+    /* Hands + logo animation */
+    .skeleton-graphic { background:#fff; color:#000; text-align:center; padding:4rem 2rem; position:relative; }
+    .skeleton-hands { position:relative; height:100px; }
+    .hand { position:absolute; width:90px; top:0; opacity:0; }
+    .left-hand { left:-120px; animation:slide-in-left 1s forwards; }
+    .right-hand { right:-120px; animation:slide-in-right 1s forwards; }
+    .logo-center { width:150px; margin:auto; opacity:0; animation:drop-down 1s forwards .3s; }
+
+    @keyframes slide-in-left { to { left:0; opacity:1; } }
+    @keyframes slide-in-right { to { right:0; opacity:1; } }
+    @keyframes drop-down { to { transform:translateY(0); opacity:1; } }
+
+    /* Cart, checkout, subscribe, footer... */
+    .cart-container { padding:2rem; text-align:center; }
+    .cart-item { display:flex; align-items:center; background:#111; padding:1rem; border-radius:8px;
+       margin-bottom:1rem; gap:1rem; flex-wrap:wrap;
+    }
+    .cart-item img { width:80px; height:80px; object-fit:cover; border-radius:5px; }
+    .item-info { flex:1; text-align:left; }
+    .quantity-control { display:flex; align-items:center; gap:.5rem; }
+    .quantity-control button { background:#fff; color:#000; border:none; padding:.3rem .7rem; font-weight:bold; cursor:pointer; }
+    .delete-btn { background:none; border:none; color:#f55; font-size:1.2rem; cursor:pointer; margin-left:1rem; }
+    .total { text-align:right; font-size:1.2rem; margin:1rem 2rem; }
+    .checkout-form { background:#111; padding:2rem; border-radius:8px; margin:2rem; }
+    .checkout-form input, .checkout-form textarea { width:100%; padding:.8rem; margin-bottom:1rem; border:none; border-radius:4px; }
+    .checkout-form button { width:100%; padding:.8rem; background:#fff; color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer; }
+    
+    .subscribe {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #111;
+    }
+
+    .subscribe input {
+      padding: 0.75rem;
+      width: 250px;
+      max-width: 80%;
+      border-radius: 5px;
+      border: none;
+      margin-right: 0.5rem;
+    }
+
+    .subscribe button {
+      padding: 0.75rem 1.5rem;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #000;
+      color: #ccc;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-logo img { height: 80px; margin-bottom: 1rem; }
+
+    .footer-col {
+      margin-top: 1rem;
+      margin-left: 0.5rem;
+      line-height: 1.8;
+    }
+
+    .footer-col hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 2rem 0 1rem;
+    }
+
+    .social-icons img { width: 24px; }
+
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .whatsapp img { width: 50px; cursor: pointer; }
+
+    @media (max-width: 600px) {
+      .product-list { flex-direction: column; align-items: center; }
+      .menu { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><img src="logo.png" alt="Skelly Logo"></div>
+    <div class="menu-toggle" id="menuToggle">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </header>
+
+  <div class="menu" id="mobileMenu">
+    <button class="close-btn" id="closeMenu">✕</button>
+    <a href="index.html">Home</a><a href="store.html">Store</a><a href="contact.html">Contact Us</a>
+    <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms & Conditions</a>
+  </div>
+
+  <section class="skeleton-graphic">
+    <div class="skeleton-hands">
+      <img src="left-hand.png" class="hand left-hand">
+      <img src="logo.png" class="logo-center">
+      <img src="right-hand.jpeg" class="hand right-hand">
+    </div>
+  </section>
+
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <div class="total" id="cartTotal">Total: $0.00</div>
+  </div>
+
+  <form class="checkout-form" id="checkoutForm">
+    <h3>Checkout Information</h3>
+    <input name="name" type="text" placeholder="Full Name" required>
+    <input name="email" type="email" placeholder="Email Address" required>
+    <input name="phone" type="tel" placeholder="Phone Number" required>
+    <textarea name="address" placeholder="Shipping Address" rows="3" required></textarea>
+    <button type="submit">Proceed to Payment</button>
+  </form>
+<!-- Subscribe -->
+<section class="subscribe" data-aos="zoom-in">
+  <h2>Never Miss Out</h2>
+  <p>Get updates on new arrivals and limited drops</p><br>
+  <form id="subscribeForm" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required />
+    <button type="submit">Subscribe Now</button>
+  </form>
+  <p id="subscribeSuccess" style="margin-top: 1rem; color: lightgreen; display: none;">
+    ✅ Thanks for subscribing!
+  </p>
+</section>
+
+<!-- Footer -->
+<footer data-aos="fade-up">
+  <div class="footer-logo"><img src="full-skeleton.png" alt="Skelly Logo"></div>
+  <div class="footer-col">
+    <p>Phone: +1 (646) 492-2316</p>
+    <p>Email: ShopSkellyCo@gmail.com</p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/skellyskellyco?igsh=MW1tZWRqanR0NDdjZw==" target="_blank">
+        <img src="instagram-icon.jpeg" alt="Instagram Icon" />
+      </a>
+    </div>
+    <p>188 Macdougal St</p>
+    <p>Brooklyn NY 11233</p>
+    <p>Mon–Sun: 9am–7pm</p>
+    <hr />
+    <p>© 2025 Skelly. All Rights Reserved.</p>
+  </div>
+</footer>
+
+  <!-- Subscribe, footer, WhatsApp go here (from your earlier code) -->
+
+  <script>
+    const menu = document.getElementById('mobileMenu');
+    const toggle = document.getElementById('menuToggle');
+    const closeBtn = document.getElementById('closeMenu');
+
+    // Toggle menu open/close
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    closeBtn.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+    });
+
+    // Cart rendering
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    function renderCart() {
+      cartItemsEl.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, i) => {
+        total += item.price * item.quantity;
+        cartItemsEl.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="item-info"><strong>${item.name}</strong><br>$${item.price} each</div>
+            <div class="quantity-control">
+              <button onclick="changeQty(${i}, -1)">–</button>
+              <span>${item.quantity}</span>
+              <button onclick="changeQty(${i}, 1)">+</button>
+            </div>
+            <button class="delete-btn" onclick="deleteItem(${i})">🗑️</button>
+          </div>`;
+      });
+      cartTotalEl.textContent = 'Total: $' + total.toFixed(2);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function changeQty(i, delta) { cart[i].quantity = Math.max(1, cart[i].quantity + delta); renderCart(); }
+    function deleteItem(i) { if (confirm('Remove this item?')) { cart.splice(i,1); renderCart(); } }
+    renderCart();
+
+    // Checkout form
+    document.getElementById('checkoutForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!cart.length) return alert('Cart is empty');
+
+      const customer = Object.fromEntries(new FormData(e.target).entries());
+      const res = await fetch('https://foolish-teddi-gjdesignhub-57b3066a.koyeb.app/create-checkout-session', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ items: cart, customer })
+      });
+      const { sessionId } = await res.json();
+      window.location = sessionId; // backend returns Stripe checkout URL
+    });
+  </script>
+</body>
+</html>
